@@ -18,7 +18,7 @@ jobs:
           pip install -r .autograder/requirements.txt
       - name: Run homework script
         run: |
-          bash -c "bash homework.sh | tee .autograder/output.txt"
+          bash -c "bash homework.sh 2>&1 | tee .autograder/output.txt"
       - name: Grade responses
         run: |
           python .autograder/autograder.py
