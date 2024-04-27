@@ -5,6 +5,7 @@ set -x
 # Edit this file below to complete the homework assignment:
 
 # 1. Create 5 directories named dir1, dir2, dir3, dir4, and dir5
+mkdir dir1 dir2 dir3 dir4 dir5
 
 # 2. List the contents of the parent directory to verify the presence of the 5 directories
 
