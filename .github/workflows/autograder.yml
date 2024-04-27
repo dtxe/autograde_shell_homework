@@ -1,0 +1,23 @@
+name: Run homework autograder
+on: 
+  pull_request:
+    branches:
+      - main
+jobs:
+  autograder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .autograder/requirements.txt
+      - name: Run shell script
+        run: |
+          bash homework.sh > .autograder/output.txt
+      - name: Run autograder to evaluate script output
+        run: |
+          python .autograder/autograder.py
