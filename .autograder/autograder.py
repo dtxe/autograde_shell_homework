@@ -3,6 +3,7 @@ import os.path
 import os
 
 github_step_output = os.environ['GITHUB_STEP_SUMMARY']
+github_output = os.environ['GITHUB_OUTPUT']
 
 # score table
 s = []
@@ -43,3 +44,9 @@ else:
 df = pd.DataFrame(s)
 df.fillna('', inplace=True)
 df.to_markdown(github_step_output)
+
+# compute percentage correct
+correct = df[df['status'] == '✅'].shape[0]
+total = df.shape[0]
+with open(github_output, 'w') as f:
+    f.write(f'Questions correct {correct}/{total}')
