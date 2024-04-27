@@ -50,3 +50,8 @@ correct = df[df['status'] == '✅'].shape[0]
 total = df.shape[0]
 with open(github_output, 'w') as f:
     f.write(f'Questions correct {correct}/{total}')
+
+if correct == total:
+    exit(0)
+else:
+    exit(1)
