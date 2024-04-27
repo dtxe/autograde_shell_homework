@@ -49,7 +49,7 @@ df.to_markdown(github_step_output)
 correct = df[df['status'] == '✅'].shape[0]
 total = df.shape[0]
 with open(github_output, 'w') as f:
-    f.write(f'Questions correct {correct}/{total}')
+    f.write(f'Score={correct}/{total}')
 
 if correct == total:
     exit(0)
