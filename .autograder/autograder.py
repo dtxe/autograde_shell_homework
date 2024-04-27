@@ -43,7 +43,7 @@ else:
 # output the score table
 df = pd.DataFrame(s)
 df.fillna('', inplace=True)
-df.to_markdown(github_step_output)
+df.to_markdown(github_step_output, index=False)
 
 # compute percentage correct
 correct = df[df['status'] == '✅'].shape[0]
