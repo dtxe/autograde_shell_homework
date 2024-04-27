@@ -11,7 +11,7 @@ s = []
 with open('homework.sh', 'r') as f:
     script = f.readlines()
 
-with open('output.txt', 'r') as f:
+with open('.autograder/output.txt', 'r') as f:
     output = f.readlines()
 
 # step 1: check if required directories exist
