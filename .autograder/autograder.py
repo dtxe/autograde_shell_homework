@@ -16,7 +16,10 @@ with open('.autograder/output.txt', 'r') as f:
     script_rslt = f.read()
 
 script_rslt = script_rslt.split('\n+')
-script_rslt = [{'command': x.split('\n')[0][1:].strip(), 'output': x.split('\n')[1:]} for x in script_rslt]
+script_rslt = [{
+    'command': x.split('\n')[0][1:].strip(),
+    'output': x.split('\n')[1:]
+} for x in script_rslt]
 
 ############################################################################################################
 ############################################################################################################
@@ -25,7 +28,11 @@ isdir = [os.path.isdir(f'dir{i}') for i in range(1, 4)]
 if all(isdir):
     s.append({'question': 1, 'status': 1})
 else:
-    s.append({'question': 1, 'status': 0, 'comment': 'missing required directories'})
+    s.append({
+        'question': 1,
+        'status': 0,
+        'comment': 'missing required directories'
+    })
 
 ############################################################################################################
 # step 2: check that the ls command was run
@@ -35,7 +42,11 @@ if len(indx) > 0:
     if any(['homework.sh' in script_rslt[i]['output'] for i in indx]):
         s.append({'question': 2, 'status': 1})
     else:
-        s.append({'question': 2, 'status': 0, 'comment': '`ls` command run in the wrong directory'})
+        s.append({
+            'question': 2,
+            'status': 0,
+            'comment': '`ls` command run in the wrong directory'
+        })
 else:
     s.append({'question': 2, 'status': 0, 'comment': '`ls` command not run'})
 
@@ -45,7 +56,11 @@ file_exists = [os.path.isfile(f'dir2/file{i}') for i in range(1, 6)]
 if all(file_exists):
     s.append({'question': 3, 'status': 1})
 else:
-    s.append({'question': 3, 'status': 0, 'comment': 'missing required files in `dir2`'})
+    s.append({
+        'question': 3,
+        'status': 0,
+        'comment': 'missing required files in `dir2`'
+    })
 
 ############################################################################################################
 # step 4: check that dir2/file3 contains "hello world"
@@ -55,9 +70,17 @@ if os.path.isfile('dir2/file3'):
     if file3.strip() == 'hello world':
         s.append({'question': 4, 'status': 1})
     else:
-        s.append({'question': 4, 'status': 0, 'comment': '`dir2/file3` does not contain "Hello, World!"'})
+        s.append({
+            'question': 4,
+            'status': 0,
+            'comment': '`dir2/file3` does not contain "Hello, World!"'
+        })
 else:
-    s.append({'question': 4, 'status': 0, 'comment': '`dir2/file3` does not exist'})
+    s.append({
+        'question': 4,
+        'status': 0,
+        'comment': '`dir2/file3` does not exist'
+    })
 
 ############################################################################################################
 # step 5: check that dir2/file3 contains "hello world"
@@ -67,7 +90,11 @@ if len(indx) > 0:
     if any(['dir2/file3' in script_rslt[i]['command'] for i in indx]):
         s.append({'question': 5, 'status': 1})
     else:
-        s.append({'question': 5, 'status': 0, 'comment': '`cat` command run on the wrong file'})
+        s.append({
+            'question': 5,
+            'status': 0,
+            'comment': '`cat` command run on the wrong file'
+        })
 else:
     s.append({'question': 5, 'status': 0, 'comment': '`cat` command not run'})
 
@@ -79,7 +106,11 @@ if len(indx) > 0:
     if any(['dir2/file4' in script_rslt[i]['command'] for i in indx]):
         s.append({'question': 6, 'status': 1})
     else:
-        s.append({'question': 6, 'status': 0, 'comment': '`rm` command run on the wrong file'})
+        s.append({
+            'question': 6,
+            'status': 0,
+            'comment': '`rm` command run on the wrong file'
+        })
 else:
     s.append({'question': 6, 'status': 0, 'comment': '`rm` command not run'})
 
@@ -88,10 +119,15 @@ else:
 # check that rm was run on dir4 and dir5
 indx = [i for i, x in enumerate(script_rslt) if x['command'].startswith('rm')]
 if len(indx) > 0:
-    if any(['dir4' in script_rslt[i]['command'] for i in indx]) and any(['dir5' in script_rslt[i]['command'] for i in indx]):
+    if any(['dir4' in script_rslt[i]['command'] for i in indx]) and any(
+        ['dir5' in script_rslt[i]['command'] for i in indx]):
         s.append({'question': 7, 'status': 1})
     else:
-        s.append({'question': 7, 'status': 0, 'comment': '`rm` command run on the wrong directory'})
+        s.append({
+            'question': 7,
+            'status': 0,
+            'comment': '`rm` command run on the wrong directory'
+        })
 
 else:
     s.append({'question': 7, 'status': 0, 'comment': '`rm` command not run'})
@@ -101,13 +137,17 @@ else:
 # check that ls was run
 indx = [i for i, x in enumerate(script_rslt) if x['command'].startswith('ls')]
 if len(indx) > 0:
-    if any(['dir4' in script_rslt[i]['output'] for i in indx]) or any(['dir5' in script_rslt[i]['output'] for i in indx]):
-        s.append({'question': 8, 'status': 0, 'comment': '`ls` command run on the wrong directory'})
+    if any(['dir4' in script_rslt[i]['output'] for i in indx]) or any(
+        ['dir5' in script_rslt[i]['output'] for i in indx]):
+        s.append({
+            'question': 8,
+            'status': 0,
+            'comment': '`ls` command run on the wrong directory'
+        })
     else:
         s.append({'question': 8, 'status': 1})
 else:
     s.append({'question': 8, 'status': 0, 'comment': '`ls` command not run'})
-    
 
 ############################################################################################################
 ############################################################################################################
@@ -121,10 +161,15 @@ correct = df['status'].sum()
 total = df.shape[0]
 
 # output the score table
-df['status'].replace({1: status_c, 0: status_i}, inplace=True)
+df['status'] = df['status'].replace({1: status_c, 0: status_i})
 df.to_markdown(github_step_output, index=False)
 
+# also display markdown to console
+print(df.to_markdown(index=False))
+
 if correct == total:
+    print('All tests passed!')
     exit(0)
 else:
+    print(f'Only {correct}/{total} tests passed.')
     exit(1)
