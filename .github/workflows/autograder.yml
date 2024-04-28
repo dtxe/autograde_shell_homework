@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   autograder:
-    name: All homework questions correct
+    name: Homework autograder
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
