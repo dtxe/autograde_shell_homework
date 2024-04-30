@@ -52,7 +52,7 @@ else:
 
 ############################################################################################################
 # step 3: check that the 5 specified files were created in dir2
-file_exists = [os.path.isfile(f'dir2/file{i}') for i in range(1, 6)]
+file_exists = [os.path.isfile(f'dir2/file{i}.txt') for i in range(1, 6)]
 if all(file_exists):
     s.append({'question': 3, 'status': 1})
 else:
@@ -64,8 +64,8 @@ else:
 
 ############################################################################################################
 # step 4: check that dir2/file3 contains "hello world"
-if os.path.isfile('dir2/file3'):
-    with open('dir2/file3', 'r') as f:
+if os.path.isfile('dir2/file3.txt'):
+    with open('dir2/file3.txt', 'r') as f:
         file3 = f.read()
     if file3.strip() == 'hello world':
         s.append({'question': 4, 'status': 1})
@@ -73,13 +73,13 @@ if os.path.isfile('dir2/file3'):
         s.append({
             'question': 4,
             'status': 0,
-            'comment': '`dir2/file3` does not contain "Hello, World!"'
+            'comment': '`dir2/file3.txt` does not contain "Hello, World!"'
         })
 else:
     s.append({
         'question': 4,
         'status': 0,
-        'comment': '`dir2/file3` does not exist'
+        'comment': '`dir2/file3.txt` does not exist'
     })
 
 ############################################################################################################
@@ -87,7 +87,7 @@ else:
 # check that cat was run on dir2/file3
 indx = [i for i, x in enumerate(script_rslt) if x['command'].startswith('cat')]
 if len(indx) > 0:
-    if any(['dir2/file3' in script_rslt[i]['command'] for i in indx]):
+    if any(['dir2/file3.txt' in script_rslt[i]['command'] for i in indx]):
         s.append({'question': 5, 'status': 1})
     else:
         s.append({
@@ -103,7 +103,7 @@ else:
 # check that rm was run on dir2/file4
 indx = [i for i, x in enumerate(script_rslt) if x['command'].startswith('rm')]
 if len(indx) > 0:
-    if any(['dir2/file4' in script_rslt[i]['command'] for i in indx]):
+    if any(['dir2/file4.txt' in script_rslt[i]['command'] for i in indx]):
         s.append({'question': 6, 'status': 1})
     else:
         s.append({

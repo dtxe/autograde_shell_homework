@@ -12,7 +12,7 @@ set -x
 
 # 4. Append the words "Hello world" to file3
 
-# 5. Verify that file3 contains the words "Hello world" by displaying the contents of the file
+# 5. Verify that file3 contains the words "hello world" by printing the contents of the file in the terminal
 
 # 6. Delete file4
 
